@@ -1,7 +1,12 @@
 This is a support page of the papers
-'Zhiguang Wang and Tim Oates. 2015. Imaging time-series to improve classification and imputation. In Proceedings of the 24th International Conference on Artificial Intelligence (IJCAI'15), Qiang Yang and Michael Wooldridge (Eds.). AAAI Press 3939-3945.'
+Zhiguang Wang and Tim Oates. 2015. 
+Imaging time-series to improve classification and imputation. 
+In Proceedings of the 24th International Conference on Artificial Intelligence (IJCAI'15), 
+Qiang Yang and Michael Wooldridge (Eds.). AAAI Press 3939-3945.
 
-'Wang, Zhiguang, and Tim Oates. "Encoding Time Series as Images for Visual Inspection and Classification Using Tiled Convolutional Neural Networks." In Workshops at the Twenty-Ninth AAAI Conference on Artificial Intelligence. 2015.'
+Wang, Zhiguang, and Tim Oates. 
+"Encoding Time Series as Images for Visual Inspection and Classification Using Tiled Convolutional Neural Networks." 
+In Workshops at the Twenty-Ninth AAAI Conference on Artificial Intelligence. 2015.
 
 The scripts are written in Python with the dependencies:
 Numpy
