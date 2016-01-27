@@ -8,40 +8,5 @@ Wang, Zhiguang, and Tim Oates.
 "Encoding Time Series as Images for Visual Inspection and Classification Using Tiled Convolutional Neural Networks." 
 In Workshops at the Twenty-Ninth AAAI Conference on Artificial Intelligence. 2015.
 
-The scripts are written in Python with the dependencies:
-Numpy
-Pandas
-Matplolib
-Cpickle
-
-Anaconda is highly recommended since it seals all the dependency quite well.
-
-serie2GAF.py
-Encoding time series to GADF/GASF. 
-The parameters are:
-
-datafiles = ['Coffee_ALL'] # Data fine name
-trains = [28] # Number of training instances (because we assume training and test data are mixed in one file)
-size = [64]  # PAA size
-GAF_type = 'GASF' # GAF type: GASF, GADF
-save_PAA = True # Save the GAF with or without dimension reduction by PAA: True, False
-rescale_type = 'Zero' # Rescale the data into [0,1] or [-1,1]: Zero, Minusone 
-
-
-serie2MTF.py
-Encoding time series to MTF.
-The parameters are:
-
-datafiles = ['Coffee_ALL'] # Data fine name
-trains = [28] # Number of training instances (because we assume training and test data are mixed in one file)
-size = [64]  # PAA size
-quantile = [16] # Quantile size
-reduction_type = 'patch' # Reduce the image size using: full, patch, paa
-
-The output will be an example grach (of the kth instance) of the polar coordnate images, generated GASF/GADF/MTF images and the pkl file.
-
-If you find the script is helpful, you are highly appreciated if you can cite the above two papers.
-
-Any questions please contact Zhiguang Wang by guang813@gmail.com. Thanks!
-
+Pleaes see wiki page.
 
