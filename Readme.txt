@@ -35,7 +35,7 @@ reduction_type = 'patch' # Reduce the image size using: full, patch, paa
 
 The output will be an example grach (of the kth instance) of the polar coordnate images, generated GASF/GADF/MTF images and the pkl file.
 
-If you find the script is helpful in your publication, you are highly appreciated if you can cite the above two papers.
+If you find the script is helpful, you are highly appreciated if you can cite the above two papers.
 
 Any questions please contact Zhiguang Wang by guang813@gmail.com. Thanks!
 
