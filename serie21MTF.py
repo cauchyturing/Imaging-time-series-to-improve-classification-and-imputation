@@ -199,6 +199,7 @@ for datafile, train in zip(datafiles,trains):
                         paacolumn.append(mat[paamatindex[p]][paamatindex[(q)]])
                         
                 column = np.array(column)
+				columnmatrix = column.reshape(len(std_data),len(std_data))
                 fullmatrix.append(column)
                 paacolumn = np.array(paacolumn)
                 paamatrix.append(paacolumn)

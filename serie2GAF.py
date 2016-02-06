@@ -153,7 +153,7 @@ def pickle3data(mat, label, train, name):
 datafiles = ['Coffee_ALL'] # Data fine name
 trains = [28] # Number of training instances (because we assume training and test data are mixed in one file)
 size = [64]  # PAA size
-GAF_type = 'GASF' # GAF type: GASF, GADF
+GAF_type = 'GADF' # GAF type: GASF, GADF
 save_PAA = True # Save the GAF with or without dimension reduction by PAA: True, False
 rescale_type = 'Zero' # Rescale the data into [0,1] or [-1,1]: Zero, Minusone 
 
