@@ -236,7 +236,7 @@ for datafile, train in zip(datafiles,trains):
 #        writeQM2Mat(datafilename+'_test', fullmatrix[train:].T,label[train:])
 
 # polar coordinates
-r = np.array(range(1,length+1));r=r/100.0;theta = np.array(rescale(raw[k][1:]))*2*np.pi;plt.figure();ax = plt.subplot(111, polar=True);ax.plot(theta, r, color='r', linewidth=3);plt.show()
+k=0;r = np.array(range(1,length+1));r=r/100.0;theta = np.array(rescale(raw[k][1:]))*2*np.pi;plt.figure();ax = plt.subplot(111, polar=True);ax.plot(theta, r, color='r', linewidth=3);plt.show()
 ## draw large image and paa image
 k = 0;plt.figure();plt.suptitle(datafile+'_index_'+str(k)+'_label_'+str(label[k]));ax1 = plt.subplot(121);plt.title(GAF_type + 'without PAA');plt.imshow(image[k]);divider = make_axes_locatable(ax1);cax = divider.append_axes("right", size="5%", pad=0.2);plt.colorbar(cax = cax);ax2 = plt.subplot(122);plt.title(GAF_type + 'with PAA');plt.imshow(paaimage[k]);divider = make_axes_locatable(ax2);cax = divider.append_axes("right", size="5%", pad=0.2);plt.colorbar(cax = cax);
 #plt.figure();plt.suptitle(datafile+'_'+str(label[k])+'_'+str(Q));ax1 = plt.subplot(131);plt.imshow(image[k]);divider = make_axes_locatable(ax1);cax = divider.append_axes("right", size="5%", pad=0.2);plt.colorbar(cax = cax);ax2 = plt.subplot(132);plt.imshow(paaimage[k]);divider = make_axes_locatable(ax2);cax = divider.append_axes("right", size="5%", pad=0.2);plt.colorbar(cax = cax);ax3 = plt.subplot(133);plt.imshow(patchimage[k]);divider = make_axes_locatable(ax3);cax = divider.append_axes("right", size="5%", pad=0.2);plt.colorbar(cax = cax);
