@@ -10,7 +10,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 from mpl_toolkits.axes_grid1 import make_axes_locatable
-import cPickle, sys
+import pickle, sys
 
 #Define sliding window
 def window_time_series(series, n, step = 1):
@@ -22,9 +22,9 @@ def window_time_series(series, n, step = 1):
 #PAA function
 def paa(series, now, opw):
     if now == None:
-        now = len(series) / opw
+        now = int(len(series) / opw)
     if opw == None:
-        opw = len(series) / now
+        opw = int(len(series) / now)
     return [sum(series[i * opw : (i + 1) * opw]) / float(opw) for i in range(now)]
 
 def standardize(serie):
@@ -55,7 +55,7 @@ def QMeq(series, Q):
         label.append(dic[each])
     for i in range(0, len(label)-1):
         MSM[label[i]][label[i+1]] += 1
-    for i in xrange(Q):
+    for i in range(Q):
         if sum(MSM[i][:]) == 0:
             continue
         MSM[i][:] = MSM[i][:]/sum(MSM[i][:])
@@ -85,7 +85,7 @@ def paaMarkovMatrix(paalist,level):
     return paaindex
 
 # Generate pdf files of generated images
-def gengrampdfs(image,paaimages,label,name):
+def gengrampdfs(image, label,name):
     import matplotlib.backends.backend_pdf as bpdf
     import operator
     index = zip(range(len(label)),label)
@@ -94,7 +94,7 @@ def gengrampdfs(image,paaimages,label,name):
         count = 0
         for p,q in index:
             count += 1
-            print 'generate fig of pdfs:',p
+            print('generate fig of pdfs: {}'.format(p))
             plt.ioff();fig= plt.figure();plt.suptitle(datafile+'_'+str(label[p]));ax1 = plt.subplot(121);plt.imshow(image[p]);divider = make_axes_locatable(ax1);cax = divider.append_axes("right", size="5%", pad=0.1);plt.colorbar(cax = cax);ax2 = plt.subplot(122);plt.imshow(paaimage[p]);divider = make_axes_locatable(ax2);cax = divider.append_axes("right", size="5%", pad=0.1);plt.colorbar(cax = cax);
             pdf.savefig(fig)
             plt.close(fig)
@@ -110,7 +110,7 @@ def genpolarpdfs(raw,label,name):
     index.sort(key = operator.itemgetter(1))
     with bpdf.PdfPages(name) as pdf:
         for p,q in index:
-            print 'generate fig of pdfs:',p
+            print('generate fig of pdfs: {}'.format(p))
             plt.ioff();r = np.array(range(1,length+1));r=r/100.0;theta = np.arccos(np.array(rescaleminus(standardize(raw[p][1:]))))*2;fig=plt.figure();plt.suptitle(datafile+'_'+str(label[p]));ax = plt.subplot(111, polar=True);ax.plot(theta, r, color='r', linewidth=3);
             pdf.savefig(fig)
             plt.close(fig)
@@ -124,27 +124,27 @@ def maxsample(mat, s):
     for each in mat:
         block = []
         for i in range(s):
-            block.append([np.max(each[i*l:(i+1)*l,j*l:(j+1)*l]) for j in xrange(s)])
+            block.append([np.max(each[i*l:(i+1)*l,j*l:(j+1)*l]) for j in range(s)])
         retval.append(np.asarray(block))
     return np.asarray(retval)
 
 #Pickle the data and save in the pkl file
 def pickledata(mat, label, train, name):
-    print '..pickling data:',name
+    print('..pickling data:'.format(name))
     traintp = (mat[:train], label[:train])
     testtp = (mat[train:], label[train:])
-    f = file(name+'.pkl', 'wb')
-    pickletp = [traintp, testtp]
-    cPickle.dump(pickletp, f, protocol=cPickle.HIGHEST_PROTOCOL)
+    with open(name+'.pkl', 'wb') as f:
+        pickletp = [traintp, testtp]
+        pickle.dump(pickletp, f, protocol=pickle.HIGHEST_PROTOCOL)
 
 def pickle3data(mat, label, train, name):
-    print '..pickling data:',name
+    print('..pickling data:'.format(name))
     traintp = (mat[:train], label[:train])
     validtp = (mat[:train], label[:train])
     testtp = (mat[train:], label[train:])
-    f = file(name+'.pkl', 'wb')
-    pickletp = [traintp, validtp, testtp]
-    cPickle.dump(pickletp, f, protocol=cPickle.HIGHEST_PROTOCOL)
+    with open(name+'.pkl', 'wb') as f:
+        pickletp = [traintp, validtp, testtp]
+        pickle.dump(pickletp, f, protocol=pickle.HIGHEST_PROTOCOL)
     
 #################################
 ###Define the parameters here####
@@ -160,12 +160,12 @@ rescale_type = 'Zero' # Rescale the data into [0,1] or [-1,1]: Zero, Minusone
 for datafile, train in zip(datafiles,trains):
     fn = datafile
     for s in size:  
-        print 'read file', datafile, 'size',s, 'GAF type', GAF_type
+        print('read file: {}, size: {}, GAF type: {}, rescale_type: {}'.format(datafile, s, GAF_type, rescale_type))
         raw = open(fn).readlines()
-        raw = [map(float, each.strip().split()) for each in raw]
+        raw = [list(map(float, each.strip().split())) for each in raw]
         length = len(raw[0])-1
         
-        print 'format data'
+        print('format data')
         label = []
         image = []
         paaimage = []

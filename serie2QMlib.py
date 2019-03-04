@@ -7,11 +7,8 @@ Modified on Wed Jan 27 15:36:00 2016
 
 import pandas as pd
 import numpy as np
-from matplotlib import pyplot as plt
-import cPickle
-#import sympy
-import scipy as sp
 import scipy.io as sio
+import pickle
 
 def output_arff(dataset, filename="data.arff"):
 
@@ -89,7 +86,7 @@ def QM(series, Q):
     MSM = np.zeros([Q,Q])
     for i in range(0, q.labels.size-1):
         MSM[q.labels[i]][q.labels[i+1]] += 1
-    for i in xrange(Q):
+    for i in range(Q):
         MSM[i][:] = MSM[i][:]/sum(MSM[i][:])
     return np.array(MSM)
     
@@ -102,7 +99,7 @@ def QMeq(series, Q):
         label.append(dic[each])
     for i in range(0, len(label)-1):
         MSM[label[i]][label[i+1]] += 1
-    for i in xrange(Q):
+    for i in range(Q):
         if sum(MSM[i][:]) == 0:
             continue
         MSM[i][:] = MSM[i][:]/sum(MSM[i][:])
@@ -117,7 +114,7 @@ def QMeq_smooth(series, Q):
         label.append(dic[each])
     for i in range(0, len(label)-1):
         MSM[label[i]][label[i+1]] += 1
-    for i in xrange(Q):
+    for i in range(Q):
         if sum(MSM[i][:]) == 0:
             MSM[i][:] = 1.0/Q
             continue
@@ -127,16 +124,16 @@ def QMeq_smooth(series, Q):
 def writeQM(qm, path):    
     size = len(qm)
     f = open(path,'wb')
-    for i in xrange(size):
+    for i in range(size):
         f.write(';'+str(i))
     f.write('\n')
-    for i in xrange(size):
+    for i in range(size):
         f.write(str(i)+';'+';'.join(map(str, list(qm[i][:].A1))[1:-1])+'\n')
     f.close()
 
 def writeQM2arff(qm, label, path):
     arff = []
-    for k in xrange(len(qm)):
+    for k in range(len(qm)):
         size = len(qm[k])
         dic = {}
         for i in range(0,size):
@@ -153,8 +150,8 @@ def writeQM2pkl(qm, label, path, tr, te, va):
     posl = []
     label = map(float, label)
     if len(qm) != len(label):
-        print "Length of QM and length of labels are not matching!"
-    for k in xrange(len(qm)):
+        print("Length of QM and length of labels are not matching!")
+    for k in range(len(qm)):
         if label[k] == 1.0:
             pos.append(qm[k].A1)
             posl.append(label[k])
@@ -181,9 +178,8 @@ def writeQM2pkl(qm, label, path, tr, te, va):
     validate = (validatedata, validatelabel)
     
     pkldata = (train, test, validate)
-    pklfile = file(path, 'wb')
-    cPickle.dump(pkldata, pklfile, protocol = cPickle.HIGHEST_PROTOCOL)
-    pklfile.close()
+    with open(path, 'wb') as pklfile:
+        pickle.dump(pkldata, pklfile, protocol = pickle.HIGHEST_PROTOCOL)
 
 #def jordan(qm):
 #    size = len(qm)
